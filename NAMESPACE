@@ -1,0 +1,3 @@
+useDynLib(networkR, .registration=TRUE)
+exportPattern("^[[:alpha:]]+")
+importFrom(Rcpp, evalCpp)
