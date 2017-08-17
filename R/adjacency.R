@@ -12,7 +12,9 @@
 #' @keywords manip
 #' @examples
 #'
-#' from <- 1:5
+#' from <- c("A", "A", "A", "B", "C")
+#' to <- c("B", "C", "D", "D", "E")
+#' adjacency(from, to)
 #'
 #' @importFrom fastmatch fmatch
 #' @importFrom Matrix sparseMatrix
@@ -20,7 +22,10 @@
 adjacency <- function(from, to, type=1, directed=TRUE) {
 
     if (length(from) != length(to))
-        stop("XXXXInput must be a square matrix")
+        stop("The from and to vectors must have the same length")
+
+    if (length(type)>1 & length(type) != 1)
+        stop("The type vectors must have the same length as from or be a scalar")
     
     entries <- unique(c(from, to))
     N <- length(entries)

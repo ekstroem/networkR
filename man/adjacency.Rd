@@ -24,7 +24,9 @@ combine the lower triangular parts into a vector
 }
 \examples{
 
-from <- 1:5
+from <- c("A", "A", "A", "B", "C")
+to <- c("B", "C", "D", "D", "E")
+adjacency(from, to)
 
 }
 \author{
