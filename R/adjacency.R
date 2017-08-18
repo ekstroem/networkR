@@ -33,6 +33,6 @@ adjacency <- function(from, to, type=1, directed=TRUE) {
     rows <- fastmatch::fmatch(from, entries)
     cols <- fastmatch::fmatch(to, entries)
 
-    Matrix::sparseMatrix(i = rows, j = cols, x=type, 
+    Matrix::sparseMatrix(i = rows, j = cols, x=type, dims=c(N,N),
              symmetric = !directed)
 }
