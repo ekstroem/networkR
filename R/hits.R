@@ -14,6 +14,7 @@
 #' to <- c("B", "C", "D", "D", "E")
 #' adjacency(from, to) %>% hits()
 #'
+#' @importFrom magrittr %>%
 #' @importFrom Matrix sparseMatrix
 #' @export hits
 hits <- function(adjmatrix, maxiter=25L) {

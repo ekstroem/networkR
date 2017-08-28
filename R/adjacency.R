@@ -24,8 +24,8 @@ adjacency <- function(from, to, weight=1, directed=TRUE) {
     if (length(from) != length(to))
         stop("The from and to vectors must have the same length")
 
-    if (length(type)>1 & length(type) != 1)
-        stop("The type vectors must have the same length as from or be a scalar")
+    if (length(weight)>1 & length(weight) != 1)
+        stop("The weight vectors must have the same length as from or be a scalar")
     
     entries <- unique(c(from, to))
     N <- length(entries)
