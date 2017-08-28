@@ -4,14 +4,14 @@
 \alias{adjacency}
 \title{Create adjacency matrix}
 \usage{
-adjacency(from, to, type = 1, directed = TRUE)
+adjacency(from, to, weight = 1, directed = TRUE)
 }
 \arguments{
 \item{from}{a vector}
 
 \item{to}{a vector}
 
-\item{type}{numeric}
+\item{weight}{numeric}
 
 \item{directed}{logical. Are the edges directed (TRUE, the default) or bidirected(FALSE).}
 }

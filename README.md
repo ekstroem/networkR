@@ -1,3 +1,3 @@
 # networkR
 
-Sandborx for functions for network analysis
+Sandbox for functions for network analysis
