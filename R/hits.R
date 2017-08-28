@@ -25,9 +25,9 @@ hits <- function(adjmatrix, maxiter=25L) {
 
     h <- rep(1, N)
     for (i in 1:maxiter) {
-        a <- h %*% adjmatrix
+        a <- as.vector(h %*% adjmatrix)
         a <- a / sqrt(sum(a^2))
-        h <- adjmatrix %*% a
+        h <- as.vector(adjmatrix %*% a)
         h <- h / sqrt(sum(h^2))        
     }
 
