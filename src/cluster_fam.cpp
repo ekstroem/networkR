@@ -20,13 +20,12 @@ IntegerVector replace_na(IntegerVector x, int replacement) {
 
 //' Cluster families
 //'
-//' @description Computes the correlation matrix distance between two correlation matrices
+//' @description Computes a vector giving the grouping in families based on id, father id, and mother id
 //' @param id Numeric vector of ids
 //' @param fid Numeric vector of ids of the father
-//' @param mid Numeric vector of ids of the father
-//' @return Returns a vector giving the xxxxx
-//' zero for equal correlation matrices and unity if they differ to a maximum extent.
-//' @author Claus Ekstrom \email{claus@@rprimer.dk}
+//' @param mid Numeric vector of ids of the mother
+//' @return Returns an integer vector giving the family index
+//' @author Claus Ekstrom \email{ekstrom@@sund.ku.dk}
 //' @keywords manip
 //' @examples
 //'
@@ -39,18 +38,28 @@ IntegerVector cluster_families(NumericVector id, NumericVector fid, NumericVecto
 
   IntegerVector fatherid = replace_na(match(fid, id), N+1);
   IntegerVector motherid = replace_na(match(mid, id), N+1);
-  IntegerVector family = seq_len(N+1)-1;
-
-  for (int i=0; i<N+1; i++) {
+  IntegerVector family = fatherid-1; // seq_len(N+1)-1;
+  IntegerVector newid = seq_len(N);
+  
+  for (int i=0; i<N; i++) {
     for (int j=0; j<N; j++) {
-      family[j] = std::min(std::min(family[j], family[motherid[j]]), family[fatherid[j]]);
+      newid[j] = std::min(std::min(family[j], family[motherid[j]]), family[fatherid[j]]);
       // Fix the mother and fathes
-      family[motherid[j]] = family[j];
-      family[N] = N;
-      family[fatherid[j]] = family[j];
-      family[N] = N;      
+      newid[motherid[j]] = family[j];
+      newid[N] = N;
+      newid[fatherid[j]] = family[j];
+      newid[N] = N;      
     }
+    if (is_true(all((newid==family)==TRUE)))
+      break;
+    else if (i < N) 
+      family = newid;
   }
 
-  return(family);
+  // Insert check here?
+
+  IntegerVector famnames = unique(family);
+  std::sort(famnames.begin(), famnames.end());
+ 
+  return(match(family, famnames));
 }

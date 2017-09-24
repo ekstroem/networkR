@@ -3,13 +3,12 @@
 
 #' Cluster families
 #'
-#' @description Computes the correlation matrix distance between two correlation matrices
+#' @description Computes a vector giving the grouping in families based on id, father id, and mother id
 #' @param id Numeric vector of ids
 #' @param fid Numeric vector of ids of the father
-#' @param mid Numeric vector of ids of the father
-#' @return Returns a vector giving the xxxxx
-#' zero for equal correlation matrices and unity if they differ to a maximum extent.
-#' @author Claus Ekstrom \email{claus@@rprimer.dk}
+#' @param mid Numeric vector of ids of the mother
+#' @return Returns an integer vector giving the family index
+#' @author Claus Ekstrom \email{ekstrom@@sund.ku.dk}
 #' @keywords manip
 #' @examples
 #'

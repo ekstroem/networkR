@@ -11,14 +11,13 @@ cluster_families(id, fid, mid)
 
 \item{fid}{Numeric vector of ids of the father}
 
-\item{mid}{Numeric vector of ids of the father}
+\item{mid}{Numeric vector of ids of the mother}
 }
 \value{
-Returns a vector giving the xxxxx
-zero for equal correlation matrices and unity if they differ to a maximum extent.
+Returns an integer vector giving the family index
 }
 \description{
-Computes the correlation matrix distance between two correlation matrices
+Computes a vector giving the grouping in families based on id, father id, and mother id
 }
 \examples{
 
@@ -26,6 +25,6 @@ x <- 1:5
 
 }
 \author{
-Claus Ekstrom \email{claus@rprimer.dk}
+Claus Ekstrom \email{ekstrom@sund.ku.dk}
 }
 \keyword{manip}
