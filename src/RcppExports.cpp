@@ -5,19 +5,22 @@
 
 using namespace Rcpp;
 
-// rcpp_hello_world
-List rcpp_hello_world();
-RcppExport SEXP _networkR_rcpp_hello_world() {
+// cluster_families
+IntegerVector cluster_families(NumericVector id, NumericVector fid, NumericVector mid);
+RcppExport SEXP _networkR_cluster_families(SEXP idSEXP, SEXP fidSEXP, SEXP midSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    rcpp_result_gen = Rcpp::wrap(rcpp_hello_world());
+    Rcpp::traits::input_parameter< NumericVector >::type id(idSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type fid(fidSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type mid(midSEXP);
+    rcpp_result_gen = Rcpp::wrap(cluster_families(id, fid, mid));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_networkR_rcpp_hello_world", (DL_FUNC) &_networkR_rcpp_hello_world, 0},
+    {"_networkR_cluster_families", (DL_FUNC) &_networkR_cluster_families, 3},
     {NULL, NULL, 0}
 };
 
