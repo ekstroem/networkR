@@ -1,12 +1,18 @@
 # networkR
 
-Sandbox for functions for network analysis
+Sandbox for network analysis
 
 
 
-## Current functions
+## Functions
 
 
 ### Families
 
 *  `cluster_families` will identify clusters (families) based on information of ids, father ids and mother ids.
+
+
+### Network analysis
+
+
+
