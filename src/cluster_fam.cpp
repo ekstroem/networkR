@@ -49,11 +49,12 @@ IntegerVector cluster_families(NumericVector id, NumericVector fid, NumericVecto
     for (int j=0; j<N; j++) {
       newid[j] = std::min(std::min(family[j], family[motherid[j]]), family[fatherid[j]]);
       // Fix the mother and fathes
-      newid[motherid[j]] = family[j];
+      newid[motherid[j]] = newid[j];
       newid[N] = N;
-      newid[fatherid[j]] = family[j];
+      newid[fatherid[j]] = newid[j];
       newid[N] = N;      
     }
+    // Rf_PrintValue(newid);
     if (is_true(all((newid==family)==TRUE)))
       break;
     else if (i < N) 
