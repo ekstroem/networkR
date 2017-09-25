@@ -71,9 +71,9 @@ IntegerVector cluster_families(NumericVector id, NumericVector fid, NumericVecto
   }
 
   // Insert check here?
-
-  IntegerVector famnames = unique(family);
-  std::sort(famnames.begin(), famnames.end());
- 
+  IntegerVector famnames = sort_unique(family);
+  IntegerVector idx = seq_len(famnames.size())-1;
+  family = family[family<N];
+  
   return(match(family, famnames));
 }
