@@ -43,22 +43,31 @@ IntegerVector cluster_families(NumericVector id, NumericVector fid, NumericVecto
   IntegerVector fatherid = replace_na(match(fid, id), N+1);
   IntegerVector motherid = replace_na(match(mid, id), N+1);
   IntegerVector family = seq_len(N+1)-1;
-  IntegerVector newid = seq_len(N);
+  IntegerVector newid = seq_len(N+1);
   
   for (int i=0; i<N; i++) {
     for (int j=0; j<N; j++) {
       newid[j] = std::min(std::min(family[j], family[motherid[j]]), family[fatherid[j]]);
-      // Fix the mother and fathes
-      newid[motherid[j]] = newid[j];
+      //      Rcout << "  Changed newid for position " << j << " to " << newid[j] << std::endl;
+    }
+    // Could be sped up
+    for (int j=0; j<N; j++) {
+      // Fix the mothers and fathers
+      //      Rcout << "    Change newid for position " << motherid[j] << " from " << newid[motherid[j]] ;      
+      newid[motherid[j]] = std::min(newid[j], newid[motherid[j]]);
+      //      Rcout << " to " << newid[motherid[j]] << std::endl;
       newid[N] = N;
-      newid[fatherid[j]] = newid[j];
+      newid[fatherid[j]] = std::min(newid[j], newid[fatherid[j]]);
+      //      Rcout << "    Changed newid for position " << fatherid[j] << " to " << newid[fatherid[j]] << std::endl;      
       newid[N] = N;      
     }
-    // Rf_PrintValue(newid);
+    //    Rf_PrintValue(newid);
+    // Rf_PrintValue(family);
     if (is_true(all((newid==family)==TRUE)))
       break;
-    else if (i < N) 
-      family = newid;
+    else if (i < N)
+      std::copy( newid.begin(), newid.end(), family.begin() ) ;
+    //      family = newid;
   }
 
   // Insert check here?
