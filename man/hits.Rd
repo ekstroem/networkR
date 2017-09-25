@@ -22,7 +22,7 @@ combine the lower triangular parts into a vector
 
 from <- c("A", "A", "A", "B", "C")
 to <- c("B", "C", "D", "D", "E")
-adjacency(from, to) \%>\% hits()
+hits(adjacency(from, to))
 
 }
 \author{
