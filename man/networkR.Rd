@@ -4,7 +4,6 @@
 \name{networkR}
 \alias{networkR}
 \alias{networkR-package}
-\alias{networkR-package}
 \title{Collection of miscellaneous useful and semi-useful functions}
 \description{
 Collection of miscellaneous useful and semi-useful functions and add-on
