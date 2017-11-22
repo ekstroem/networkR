@@ -22,13 +22,3 @@ cluster_families <- function(id, fid, mid) {
     .Call(`_networkR_cluster_families`, id, fid, mid)
 }
 
-#' @export 
-distances <- function(from, to, weight) {
-    .Call(`_networkR_distances`, from, to, weight)
-}
-
-#' @export 
-Distances <- function(from, to, weight) {
-    .Call(`_networkR_Distances`, from, to, weight)
-}
-

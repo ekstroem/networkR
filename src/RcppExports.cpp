@@ -19,37 +19,9 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// distances
-IntegerVector distances(const IntegerVector& from, const IntegerVector& to, const IntegerVector& weight);
-RcppExport SEXP _networkR_distances(SEXP fromSEXP, SEXP toSEXP, SEXP weightSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const IntegerVector& >::type from(fromSEXP);
-    Rcpp::traits::input_parameter< const IntegerVector& >::type to(toSEXP);
-    Rcpp::traits::input_parameter< const IntegerVector& >::type weight(weightSEXP);
-    rcpp_result_gen = Rcpp::wrap(distances(from, to, weight));
-    return rcpp_result_gen;
-END_RCPP
-}
-// Distances
-IntegerVector Distances(const IntegerVector& from, const IntegerVector& to, const NumericVector& weight);
-RcppExport SEXP _networkR_Distances(SEXP fromSEXP, SEXP toSEXP, SEXP weightSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const IntegerVector& >::type from(fromSEXP);
-    Rcpp::traits::input_parameter< const IntegerVector& >::type to(toSEXP);
-    Rcpp::traits::input_parameter< const NumericVector& >::type weight(weightSEXP);
-    rcpp_result_gen = Rcpp::wrap(Distances(from, to, weight));
-    return rcpp_result_gen;
-END_RCPP
-}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_networkR_cluster_families", (DL_FUNC) &_networkR_cluster_families, 3},
-    {"_networkR_distances", (DL_FUNC) &_networkR_distances, 3},
-    {"_networkR_Distances", (DL_FUNC) &_networkR_Distances, 3},
     {NULL, NULL, 0}
 };
 
