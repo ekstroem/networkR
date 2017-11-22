@@ -1,11 +1,12 @@
-#' Create adjacency matrix
-#' 
-#' Split a matrix into block diagonal sub matrices according to clusters and
-#' combine the lower triangular parts into a vector
+#' Hyperlink-induced topic search
+#'
+#' Hyperlink-induced topic search (HITS) is a link analysis algorithm
+#' that is also known as hubs and authorities. It rates nodes by
+#' comparing arrows pointing in and out of nodes in an assymetrical graph.
 #' 
 #' @param adjmatrix an adjacency matrix
 #' @param maxiter non-negative integer
-#' @return Returns a sparse adjacency matrix
+#' @return Returns a list of authorities and hubs
 #' @author Claus Ekstrom \email{claus@@ekstroem.dk}
 #' @keywords manip
 #' @examples

@@ -2,7 +2,7 @@
 % Please edit documentation in R/hits.R
 \name{hits}
 \alias{hits}
-\title{Create adjacency matrix}
+\title{Hyperlink-induced topic search}
 \usage{
 hits(adjmatrix, maxiter = 25L)
 }
@@ -12,11 +12,12 @@ hits(adjmatrix, maxiter = 25L)
 \item{maxiter}{non-negative integer}
 }
 \value{
-Returns a sparse adjacency matrix
+Returns a list of authorities and hubs
 }
 \description{
-Split a matrix into block diagonal sub matrices according to clusters and
-combine the lower triangular parts into a vector
+Hyperlink-induced topic search (HITS) is a link analysis algorithm
+that is also known as hubs and authorities. It rates nodes by
+comparing arrows pointing in and out of nodes in an assymetrical graph.
 }
 \examples{
 

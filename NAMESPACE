@@ -3,6 +3,7 @@
 export(adjacency)
 export(cluster_families)
 export(hits)
+export(kinship)
 import(graphics)
 import(stats)
 import(utils)

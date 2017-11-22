@@ -7,21 +7,35 @@
 using namespace Rcpp;
 
 // cluster_families
-IntegerVector cluster_families(NumericVector id, NumericVector fid, NumericVector mid);
+IntegerVector cluster_families(const IntegerVector& id, const IntegerVector& fid, const IntegerVector& mid);
 RcppExport SEXP _networkR_cluster_families(SEXP idSEXP, SEXP fidSEXP, SEXP midSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericVector >::type id(idSEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type fid(fidSEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type mid(midSEXP);
+    Rcpp::traits::input_parameter< const IntegerVector& >::type id(idSEXP);
+    Rcpp::traits::input_parameter< const IntegerVector& >::type fid(fidSEXP);
+    Rcpp::traits::input_parameter< const IntegerVector& >::type mid(midSEXP);
     rcpp_result_gen = Rcpp::wrap(cluster_families(id, fid, mid));
+    return rcpp_result_gen;
+END_RCPP
+}
+// kinship
+arma::sp_mat kinship(IntegerVector id, IntegerVector fid, IntegerVector mid);
+RcppExport SEXP _networkR_kinship(SEXP idSEXP, SEXP fidSEXP, SEXP midSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerVector >::type id(idSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type fid(fidSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type mid(midSEXP);
+    rcpp_result_gen = Rcpp::wrap(kinship(id, fid, mid));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
     {"_networkR_cluster_families", (DL_FUNC) &_networkR_cluster_families, 3},
+    {"_networkR_kinship", (DL_FUNC) &_networkR_kinship, 3},
     {NULL, NULL, 0}
 };
 
