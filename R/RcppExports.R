@@ -43,28 +43,3 @@ kinship <- function(id, fid, mid) {
     .Call(`_networkR_kinship`, id, fid, mid)
 }
 
-#' Cluster network
-#'
-#' @description Identifies cluster in a symmetric, weighted network based on an edgelist. The edgelist should contain positive integers for the node numbers. Sequential node numbers will speed up computations.
-#' @param from Integer vector of nodes where the link is from
-#' @param to Integer vector of nodes where the link is to
-#' @param weight Numeric vector of link weights
-#' @param threshold A double indicating the minimum link weight that should be considered. Only weights equal to or greater than the threshold will be considered in the clustering
-#' @return Returns an integer vector giving the cluster index for each node
-#' @author Claus Ekstrom \email{ekstrom@@sund.ku.dk}
-#' @keywords manip
-#' @examples
-#'
-#' aaa <- structure(c(1, 6, 5, 4, 5, 11, 1, 5, 3, 13, 16, 15, 18,
-#'                    6, 7, 8, 10, 12, 14, 15, 15, 16, 17, 17, 18, 20), .Dim = c(13L, 2L))
-#' cluster_network(aaa[,1], aaa[,2], weight=rep(1, nrow(aaa))) 
-#'
-#' @export 
-cluster_network <- function(from, to, weight, threshold = 0) {
-    .Call(`_networkR_cluster_network`, from, to, weight, threshold)
-}
-
-#' ' ' ' ' ' '' '  ' @export
-#' ' ' ' ' ' ' ' '' ' ' [[Rcpp::export]]
-NULL
-
