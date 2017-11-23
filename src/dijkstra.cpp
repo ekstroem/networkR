@@ -131,8 +131,8 @@ IntegerVector distances44(const IntegerVector& from, const IntegerVector& to, co
 }
 
 
-//' @export
-// [[Rcpp::export]]
+//' ' ' ' ' ' '' '  ' @export
+//' ' ' ' ' ' ' ' '' ' ' [[Rcpp::export]]
 IntegerVector Distances(const IntegerVector& from, const IntegerVector& to, const NumericVector& weight) {
 
   long nVertices = 25000;

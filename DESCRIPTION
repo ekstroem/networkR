@@ -7,7 +7,8 @@ Author: Claus Thorn Ekstrøm <ekstrom@sund.ku.dk>
 Maintainer: Claus Thorn Ekstrøm <ekstrom@sund.ku.dk>
 Description: Miscellaneous functions for working with network and family data.
 License: GPL (>= 2)
-Depends: fastmatch,
+Depends: data.table,
+         fastmatch,
          Matrix
 Imports: Rcpp (>= 0.12.12)
 LinkingTo: Rcpp, RcppArmadillo

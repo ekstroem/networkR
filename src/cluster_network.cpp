@@ -42,7 +42,8 @@ IntegerVector order_impl(const Vector<RTYPE>& x, bool desc) {
 //' @keywords manip
 //' @examples
 //'
-//' aaa <- structure(c(1, 6, 5, 4, 5, 11, 1, 5, 3, 13, 16, 15, 18, 6, 7, 8, 10, 12, 14, 15, 15, 16, 17, 17, 18, 20), .Dim = c(13L, 2L))
+//' aaa <- structure(c(1, 6, 5, 4, 5, 11, 1, 5, 3, 13, 16, 15, 18,
+//'                    6, 7, 8, 10, 12, 14, 15, 15, 16, 17, 17, 18, 20), .Dim = c(13L, 2L))
 //' cluster_network(aaa[,1], aaa[,2], weight=rep(1, nrow(aaa))) 
 //'
 //' @export 
