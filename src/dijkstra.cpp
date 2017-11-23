@@ -131,13 +131,12 @@ IntegerVector distances44(const IntegerVector& from, const IntegerVector& to, co
 }
 
 
-
+//' @export
+// [[Rcpp::export]]
 IntegerVector Distances(const IntegerVector& from, const IntegerVector& to, const NumericVector& weight) {
 
-  long nVertices = 1000;
+  long nVertices = 25000;
   long nEdges = from.size();
-
-  nVertices=1000;
 
   for (int i=0; i<nEdges; i++) {
     a[from[i]].push_back(make_pair(to[i],weight[i]));
@@ -148,11 +147,12 @@ IntegerVector Distances(const IntegerVector& from, const IntegerVector& to, cons
   for (int j=1; j<=nVertices; j++) {
   Dijkstra_cpp(j, nVertices);
   for (int i = 1; i <= nVertices; i++) {
-    if (dis[i] != INT_MAX) {
+    /*    if (dis[i] != INT_MAX) {
       Rcout << dis[i] << " ";
     } else {
       Rcout << "-1 ";
     }
+    */
   }
   }
   return wrap(0);
