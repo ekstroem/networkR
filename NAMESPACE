@@ -2,6 +2,7 @@
 
 export(adjacency)
 export(cluster_families)
+export(families2edges)
 export(hits)
 export(kinship)
 export(mksib)

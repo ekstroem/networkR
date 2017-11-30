@@ -5,7 +5,6 @@
 #include <Rcpp.h>
 using namespace Rcpp;
 
-
 IntegerVector replace_na(IntegerVector x, int replacement) {
   long N = x.size() ;
 
@@ -82,10 +81,6 @@ IntegerVector cluster_families(const IntegerVector& id, const IntegerVector&  fi
   
   return(match(family, famnames));
 }
-
-
-
-
 
 
 int unique_set_native(Rcpp::CharacterVector x) {
