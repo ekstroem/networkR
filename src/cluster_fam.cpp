@@ -22,9 +22,16 @@ IntegerVector replace_na(IntegerVector x, int replacement) {
 }
 
 
-//' Cluster families
+//' Construct family id vector from pedigree information
 //'
-//' @description Computes a vector of groupings in families based on id, father id, and mother id. No check is done to ensure that the id, fid, and mid actually refere to a proper family structure. References to ids in the fid and mid arguments that are not part of the id vector are considered founders.
+//' @description Create a vector of length n, giving the family id of
+//' each subject.  If the pedigree is totally connected, then everyone
+//' will end up in tree 1, otherwise the tree numbers represent the
+//' disconnected subfamilies.  Singleton subjects each have unique
+//' family numbers.
+//'
+//' No check is done to ensure that the id, fid, and mid actually refer to proper family structure.
+//' References to ids in the fid and mid arguments that are not part of the id vector are considered founders.
 //' @param id Numeric vector of ids
 //' @param fid Numeric vector of ids of the father
 //' @param mid Numeric vector of ids of the mother
@@ -36,11 +43,11 @@ IntegerVector replace_na(IntegerVector x, int replacement) {
 //' id <- 1:11
 //' fid <- c(NA, NA, 1, 1, NA, 23, 45, 5, 5, 7, NA)
 //' mid <- c(NA, NA, 2, 2, 65, NA, 46, 6, 6, 6, NA)
-//' cluster_families(id, fid, mid)
+//' make_family_id(id, fid, mid)
 //'
 //' @export 
 // [[Rcpp::export]]
-IntegerVector cluster_families(const IntegerVector& id, const IntegerVector&  fid, const IntegerVector& mid) {
+IntegerVector make_family_id(const IntegerVector& id, const IntegerVector&  fid, const IntegerVector& mid) {
 
   long N = id.size();
 
@@ -104,7 +111,7 @@ int unique_set_native(Rcpp::CharacterVector x) {
 //' id <- 1:11
 //' fid <- c(NA, NA, 1, 1, NA, 23, 45, 5, 5, 7, NA)
 //' mid <- c(NA, NA, 2, 2, 65, NA, 46, 6, 6, 6, NA)
-//' cluster_families(id, fid, mid)
+//' ## cluster_families(id, fid, mid)
 //'
 //' @export 
 // [[Rcpp::export]]
@@ -116,7 +123,7 @@ arma::sp_mat kinship(IntegerVector id, IntegerVector fid, IntegerVector mid) {
 
   // Get the clusters
   // 1) For each cluster
-  IntegerVector clusters = cluster_families(id, fid, mid);
+  IntegerVector clusters = make_family_id(id, fid, mid);
   int nclusters = unique_set_native(as<CharacterVector>(clusters));
 
   for (int cluster=1; cluster<=nclusters; cluster++) {
@@ -147,7 +154,7 @@ arma::sp_mat kinship(IntegerVector id, IntegerVector fid, IntegerVector mid) {
 //' id <- 1:11
 //' fid <- c(NA, NA, 1, 1, NA, 23, 45, 5, 5, 7, NA)
 //' mid <- c(NA, NA, 2, 2, 65, NA, 46, 6, 6, 6, NA)
-//' cluster_families(id, fid, mid)
+//' ## cluster_families(id, fid, mid)
 //'
 //' @export 
 // [[Rcpp::export]]

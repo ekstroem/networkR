@@ -6,16 +6,16 @@
 
 using namespace Rcpp;
 
-// cluster_families
-IntegerVector cluster_families(const IntegerVector& id, const IntegerVector& fid, const IntegerVector& mid);
-RcppExport SEXP _networkR_cluster_families(SEXP idSEXP, SEXP fidSEXP, SEXP midSEXP) {
+// make_family_id
+IntegerVector make_family_id(const IntegerVector& id, const IntegerVector& fid, const IntegerVector& mid);
+RcppExport SEXP _networkR_make_family_id(SEXP idSEXP, SEXP fidSEXP, SEXP midSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const IntegerVector& >::type id(idSEXP);
     Rcpp::traits::input_parameter< const IntegerVector& >::type fid(fidSEXP);
     Rcpp::traits::input_parameter< const IntegerVector& >::type mid(midSEXP);
-    rcpp_result_gen = Rcpp::wrap(cluster_families(id, fid, mid));
+    rcpp_result_gen = Rcpp::wrap(make_family_id(id, fid, mid));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -47,7 +47,7 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_networkR_cluster_families", (DL_FUNC) &_networkR_cluster_families, 3},
+    {"_networkR_make_family_id", (DL_FUNC) &_networkR_make_family_id, 3},
     {"_networkR_kinship", (DL_FUNC) &_networkR_kinship, 3},
     {"_networkR_families2edges", (DL_FUNC) &_networkR_families2edges, 3},
     {NULL, NULL, 0}
