@@ -12,8 +12,8 @@
 #' No check is done to ensure that the id, fid, and mid actually refer to proper family structure.
 #' References to ids in the fid and mid arguments that are not part of the id vector are considered founders.
 #' @param id Numeric vector of ids
-#' @param fid Numeric vector of ids of the father
-#' @param mid Numeric vector of ids of the mother
+#' @param fid Numeric vector of ids of the father. This should be NA for a founder.
+#' @param mid Numeric vector of ids of the mother. This should be NA for a founder.
 #' @return Returns an integer vector giving the family index
 #' @author Claus Ekstrom \email{ekstrom@@sund.ku.dk}
 #' @keywords manip
