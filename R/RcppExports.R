@@ -46,8 +46,8 @@ make_family_id <- function(id, fid, mid) {
 #' ## cluster_families(id, fid, mid)
 #'
 #' @export 
-kinship <- function(id, fid, mid) {
-    .Call(`_networkR_kinship`, id, fid, mid)
+families2edges <- function(id, fid, mid) {
+    .Call(`_networkR_families2edges`, id, fid, mid)
 }
 
 #' Cluster families
@@ -67,7 +67,7 @@ kinship <- function(id, fid, mid) {
 #' ## cluster_families(id, fid, mid)
 #'
 #' @export 
-families2edges <- function(id, fid, mid) {
-    .Call(`_networkR_families2edges`, id, fid, mid)
+kinship <- function(id, fid, mid) {
+    .Call(`_networkR_kinship`, id, fid, mid)
 }
 

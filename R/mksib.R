@@ -46,6 +46,18 @@
 #' @export
 mksib <- function( obj, ns=3, expand.vars=TRUE ) {
     indata <- copy( obj )
+
+    ## Check that the ...
+
+    ## Setting these variables to prevent "no visible binding for global variable"
+
+    id <- NULL
+    pid <- NULL
+    mid <- NULL
+    fsibs <- NULL
+    msibs <- NULL
+    psibs <- NULL
+    
     ## missing parent id causes very large fsibships
     ## missing replaced by bogus ids beyond maximal id
     mxid <- max( c(indata$pid,
@@ -53,11 +65,11 @@ mksib <- function( obj, ns=3, expand.vars=TRUE ) {
     pna <- sum( is.na(indata[,"pid"]) )
     mna <- sum( is.na(indata[,"mid"]) )
     indata[is.na(pid),pid := mxid + 1:pna]
-    indata[is.na(mid),mid := mxid +   pna + 1:mna]
+    indata[is.na(mid),mid := mxid + pna + 1:mna]
                                         # this is the core
-    setDT(indata)[,msibs := .(list(id)), by = "mid"][         # lists of maternal children
+    setDT(indata)[,msibs := list(list(id)), by = "mid"][         # lists of maternal children
        ,msibs := mapply(setdiff, msibs, id)][      # but not your own sib
-       ,psibs := .(list(id)), by = "pid"][         # lists of paternal children
+       ,psibs := list(list(id)), by = "pid"][         # lists of paternal children
        ,psibs := mapply(setdiff, psibs, id)][      # but not your own sib
        ,fsibs := mapply(intersect, msibs, psibs)][ # full sibs
        ,msibs := mapply(setdiff, msibs, fsibs)][   # remove full from maternal

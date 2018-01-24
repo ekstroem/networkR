@@ -1,8 +1,8 @@
 Package: networkR
 Type: Package
 Title: Network Analysis and Visualization
-Version: 0.0-3
-Date: 2017-12-15
+Version: 0.0-4
+Date: 2018-01-24
 Author: Claus Thorn Ekstrøm <ekstrom@sund.ku.dk>
 Maintainer: Claus Thorn Ekstrøm <ekstrom@sund.ku.dk>
 Description: Miscellaneous functions for working with network and family data.

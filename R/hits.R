@@ -19,8 +19,7 @@
 #' @export hits
 hits <- function(adjmatrix, maxiter=25L) {
 
-    ## 
-    
+    ##     
     N <- nrow(adjmatrix)
 
     h <- rep(1, N)
@@ -28,9 +27,10 @@ hits <- function(adjmatrix, maxiter=25L) {
         a <- as.vector(h %*% adjmatrix)
         a <- a / sqrt(sum(a^2))
         h <- as.vector(adjmatrix %*% a)
-        h <- h / sqrt(sum(h^2))        
+        h <- h / sqrt(sum(h^2))
     }
 
-    list(authorities=a, hubs=h)
+    list(authorities=a,
+         hubs=h)
 }
 
