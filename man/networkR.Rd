@@ -19,7 +19,7 @@ how to use the package, including the most important ~~ % ~~ functions ~~
 Ekstrøm, C. (2017). The R Primer. 2nd edition, Chapman & Hall.
 }
 \author{
-Claus Thorn Ekstrøm \email{claus@rprimer.dk}\cr Maintainer: Claus Thorn Ekstrøm
-\email{claus@rprimer.dk}
+Claus Thorn Ekstrøm \email{ekstrom@sund.ku.dk}\cr Maintainer: Claus Thorn Ekstrøm
+\email{ekstrom@sund.ku.dk}
 }
 \keyword{package}

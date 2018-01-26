@@ -35,6 +35,6 @@ hits(adjacency(from, to))
 Kleinberg, Jon (1999). "Authoritative sources in a hyperlinked environment" (PDF). Journal of the ACM. 46 (5): 604–632. doi:10.1145/324133.324140
 }
 \author{
-Claus Ekstrom \email{claus@ekstroem.dk}
+Claus Ekstrom \email{ekstrom@sund.ku.dk}
 }
 \keyword{manip}

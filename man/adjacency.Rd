@@ -7,11 +7,11 @@
 adjacency(from, to, weight = 1, directed = TRUE)
 }
 \arguments{
-\item{from}{a vector}
+\item{from}{a vector of nodes where the edges originate}
 
-\item{to}{a vector}
+\item{to}{a vector of nodes where the edges point to}
 
-\item{weight}{numeric}
+\item{weight}{a numeric vector of weights}
 
 \item{directed}{logical. Are the edges directed (TRUE, the default) or bidirected(FALSE).}
 }
@@ -19,8 +19,7 @@ adjacency(from, to, weight = 1, directed = TRUE)
 Returns a sparse adjacency matrix
 }
 \description{
-Split a matrix into block diagonal sub matrices according to clusters and
-combine the lower triangular parts into a vector
+Create an adjacency matrix from a set of nodes and edges.
 }
 \examples{
 
@@ -28,8 +27,13 @@ from <- c("A", "A", "A", "B", "C")
 to <- c("B", "C", "D", "D", "E")
 adjacency(from, to)
 
+from <- c("A", "A", "A", "B", "C")
+to <- c("B", "C", "D", "D", "E")
+weights <- c(1, .5, 1, .7, 1)
+adjacency(from, to, weights)
+
 }
 \author{
-Claus Ekstrom \email{claus@ekstroem.dk}
+Claus Ekstrom \email{ekstrom@sund.ku.dk}
 }
 \keyword{manip}

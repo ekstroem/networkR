@@ -7,7 +7,11 @@ Authors@R: c(person(given="Claus Thorn", family="Ekstrøm", email="ekstrom@sund.
              person(given="Bendix", family="Carstensen", email="b@bxc.dk", role="ctb"))
 Maintainer: Claus Thorn Ekstrøm <ekstrom@sund.ku.dk>
 Description: Collection of functions for fast manipulation, handling, and analysis of large-scale
-    networks based on family and social data. 
+    networks based on family and social data. Functions are utility functions used to manipulate data
+    in three "formats": sparse adjacency matrices, pedigree trio family data, and pedigree family data.
+    When possible, the functions should be able to handle millions of data points quickly for use in combination
+    with data from large public national registers and databases.
+    Kenneth Lange (2003, ISBN:978-8181281135).
 License: GPL (>= 2)
 Depends: data.table,
          fastmatch,

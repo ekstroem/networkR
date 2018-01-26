@@ -13,8 +13,8 @@
 #' @docType package
 #' @useDynLib networkR, .registration = TRUE
 #' @importFrom Rcpp sourceCpp
-#' @author Claus Thorn Ekstrøm \email{claus@@rprimer.dk}\cr Maintainer: Claus Thorn Ekstrøm
-#' \email{claus@@rprimer.dk}
+#' @author Claus Thorn Ekstrøm \email{ekstrom@@sund.ku.dk}\cr Maintainer: Claus Thorn Ekstrøm
+#' \email{ekstrom@@sund.ku.dk}
 #' @references Ekstrøm, C. (2017). The R Primer. 2nd edition, Chapman & Hall.
 #' @import utils stats graphics
 #' @keywords package
