@@ -1,6 +1,7 @@
 ^\.RData
 ^\.Rhistory
 ^README*
+^TODO.md
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^.*\.html

@@ -28,6 +28,23 @@ devtools::install_github('ekstroem/networkR')
 *  `adjacency` 
 *  `hits`
 
+### Formats
+
+The `linkage` format for family data ...
 
 
+
+The `trio` format that we use in this package is a reduced/restricted version
+of the linkage format consisting of three *integer* (numeric) values for each individual: 
+
+*   `id` - the id of the individual,
+*   `fid` - the id of the father,
+*   `mid` - the id of the mother.
+
+For the `fid` and `mid` variables a 0 or `NA` represents no
+information, and a person with nor information on father and mother id
+is considered a founder. For consistency, an individual should not
+have just a single parent missing.
+
+Note that since we do not have a family indicator all id's should be uniques across all families.
 
