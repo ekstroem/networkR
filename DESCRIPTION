@@ -1,11 +1,13 @@
 Package: networkR
 Type: Package
 Title: Network Analysis and Visualization
-Version: 0.1-0
+Version: 0.1.0-0
 Date: 2018-01-26
-Author: Claus Thorn Ekstrøm <ekstrom@sund.ku.dk>
+Authors@R: c(person(given="Claus Thorn", family="Ekstrøm", email="ekstrom@sund.ku.dk", role=c("aut", "cre")),
+             person(given="Bendix", family="Carstensen", email="b@bxc.dk", role="ctb"))
 Maintainer: Claus Thorn Ekstrøm <ekstrom@sund.ku.dk>
-Description: Miscellaneous functions for working with network and family data.
+Description: Collection of functions for fast manipulation, handling, and analysis of large-scale
+    networks based on family and social data. 
 License: GPL (>= 2)
 Depends: data.table,
          fastmatch,
@@ -17,3 +19,5 @@ Encoding: UTF-8
 ByteCompile: true
 RoxygenNote: 6.0.1.9000
 Suggests: testthat
+
+

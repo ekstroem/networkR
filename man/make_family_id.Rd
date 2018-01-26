@@ -2,16 +2,16 @@
 % Please edit documentation in R/RcppExports.R
 \name{make_family_id}
 \alias{make_family_id}
-\title{Construct family id vector from pedigree information}
+\title{Construct family id vector from pedigree trio information}
 \usage{
 make_family_id(id, fid, mid)
 }
 \arguments{
 \item{id}{Numeric vector of ids}
 
-\item{fid}{Numeric vector of ids of the father. This should be NA for a founder.}
+\item{fid}{Numeric vector of ids of the father. This should be NA or 0 for a founder.}
 
-\item{mid}{Numeric vector of ids of the mother. This should be NA for a founder.}
+\item{mid}{Numeric vector of ids of the mother. This should be NA or 0 for a founder.}
 }
 \value{
 Returns an integer vector giving the family index
@@ -30,7 +30,7 @@ References to ids in the fid and mid arguments that are not part of the id vecto
 
 id <- 1:11
 fid <- c(NA, NA, 1, 1, NA, 23, 45, 5, 5, 7, NA)
-mid <- c(NA, NA, 2, 2, 65, NA, 46, 6, 6, 6, NA)
+mid <- c(NA, NA, 2, 2, 65, NA, 46, 6, 6, 6, 0)
 make_family_id(id, fid, mid)
 
 }

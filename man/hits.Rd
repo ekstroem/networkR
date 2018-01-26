@@ -4,20 +4,25 @@
 \alias{hits}
 \title{Hyperlink-induced topic search}
 \usage{
-hits(adjmatrix, maxiter = 25L)
+hits(adjmatrix, maxiter = 100L, tol = 1e-05)
 }
 \arguments{
 \item{adjmatrix}{an adjacency matrix}
 
 \item{maxiter}{non-negative integer}
+
+\item{tol}{positive numeric value to be used as tolerance threshold for convergence}
 }
 \value{
-Returns a list of authorities and hubs
+Returns a list with three elements: authorities (a vector) of  and hubs (a vector), and number of iterations used.
 }
 \description{
 Hyperlink-induced topic search (HITS) is a link analysis algorithm
 that is also known as hubs and authorities. It rates nodes by
-comparing arrows pointing in and out of nodes in an assymetrical graph.
+comparing arrows pointing in and out of nodes in an asymmetrical graph.
+}
+\details{
+Hubs are nodes with a lot of arrows pointing out while authorities are node with a lot of arrows pointing in.
 }
 \examples{
 
@@ -25,6 +30,9 @@ from <- c("A", "A", "A", "B", "C")
 to <- c("B", "C", "D", "D", "E")
 hits(adjacency(from, to))
 
+}
+\references{
+Kleinberg, Jon (1999). "Authoritative sources in a hyperlinked environment" (PDF). Journal of the ACM. 46 (5): 604–632. doi:10.1145/324133.324140
 }
 \author{
 Claus Ekstrom \email{claus@ekstroem.dk}

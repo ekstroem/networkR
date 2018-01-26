@@ -5,7 +5,7 @@
 #include <Rcpp.h>
 using namespace Rcpp;
 
-IntegerVector replace_na(IntegerVector x, int replacement) {
+IntegerVector replace_nazero(IntegerVector x, int replacement) {
   long N = x.size() ;
 
   IntegerVector out(N+1);
@@ -13,7 +13,9 @@ IntegerVector replace_na(IntegerVector x, int replacement) {
   for( long i=0; i<N; i++){
     if( IntegerVector::is_na( x[i] ) )
       out[i] = replacement-1;
-    else {
+    else if (x[i] == 0) {
+      out[i] = replacement-1;
+    } else {
       out[i] = x[i]-1;
     }
   }
@@ -22,7 +24,7 @@ IntegerVector replace_na(IntegerVector x, int replacement) {
 }
 
 
-//' Construct family id vector from pedigree information
+//' Construct family id vector from pedigree trio information
 //'
 //' @description Create a vector of length n, giving the family id of
 //' each subject.  If the pedigree is totally connected, then everyone
@@ -33,8 +35,8 @@ IntegerVector replace_na(IntegerVector x, int replacement) {
 //' No check is done to ensure that the id, fid, and mid actually refer to proper family structure.
 //' References to ids in the fid and mid arguments that are not part of the id vector are considered founders.
 //' @param id Numeric vector of ids
-//' @param fid Numeric vector of ids of the father. This should be NA for a founder.
-//' @param mid Numeric vector of ids of the mother. This should be NA for a founder.
+//' @param fid Numeric vector of ids of the father. This should be NA or 0 for a founder.
+//' @param mid Numeric vector of ids of the mother. This should be NA or 0 for a founder.
 //' @return Returns an integer vector giving the family index
 //' @author Claus Ekstrom \email{ekstrom@@sund.ku.dk}
 //' @keywords manip
@@ -42,17 +44,24 @@ IntegerVector replace_na(IntegerVector x, int replacement) {
 //'
 //' id <- 1:11
 //' fid <- c(NA, NA, 1, 1, NA, 23, 45, 5, 5, 7, NA)
-//' mid <- c(NA, NA, 2, 2, 65, NA, 46, 6, 6, 6, NA)
+//' mid <- c(NA, NA, 2, 2, 65, NA, 46, 6, 6, 6, 0)
 //' make_family_id(id, fid, mid)
 //'
 //' @export 
 // [[Rcpp::export]]
-IntegerVector make_family_id(const IntegerVector& id, const IntegerVector&  fid, const IntegerVector& mid) {
+IntegerVector make_family_id(const IntegerVector& id, const IntegerVector& fid, const IntegerVector& mid) {
 
   long N = id.size();
 
-  IntegerVector fatherid = replace_na(match(fid, id), N+1);
-  IntegerVector motherid = replace_na(match(mid, id), N+1);
+  // Sanity checks
+  if (fid.size() != N)
+    stop("id, fid, and mid must have the same length");
+  if (mid.size() != N)
+    stop("id, fid, and mid must have the same length");
+
+      
+  IntegerVector fatherid = replace_nazero(match(fid, id), N+1);
+  IntegerVector motherid = replace_nazero(match(mid, id), N+1);
   IntegerVector family = seq_len(N+1)-1;
   IntegerVector newid = seq_len(N+1);
   
@@ -120,8 +129,8 @@ IntegerVector families2edges(const IntegerVector& id, const IntegerVector&  fid,
 
   long N = id.size();
 
-  IntegerVector fatherid = replace_na(match(fid, id), N+1);
-  IntegerVector motherid = replace_na(match(mid, id), N+1);
+  IntegerVector fatherid = replace_nazero(match(fid, id), N+1);
+  IntegerVector motherid = replace_nazero(match(mid, id), N+1);
   IntegerVector family = seq_len(N+1)-1;
   IntegerVector newid = seq_len(N+1);
   
