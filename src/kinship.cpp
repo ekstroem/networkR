@@ -630,6 +630,96 @@ void read_pedigree_file(const char* in_file)
 }
 
 
+// Temp fix - CE
+void set_founders()
+{
+
+  // For each family
+  vector<Family>::iterator fam;
+  for (fam = pedigrees.begin();  fam != pedigrees.end();  fam++) {
+    fam->setIndices();  //
+
+
+    
+    // create founder kinship table in family
+    while (fam->founder_kinship.size() < fam->founder.size()) {  // CE family -> fam
+      fam->founder_kinship.push_back(vector<double>(fam->founder.size()));
+    }
+    
+    
+    
+    // For each person in the family
+    vector<Individual*>::iterator person;
+    vector<Individual*>::iterator found;
+    for (person = fam->members.begin();  person != fam->members.end();  person++) {
+      //printf("PERSON: %i, f %i, m %i, s %i\n", person->individual_id, person->father_id, person->mother_id, person->sex);
+      
+      // mother
+      if ((*person)->mother == NULL && (*person)->mother_id != UNKNOWN)	{
+	int mother_id = (*person)->mother_id;
+	found = fam->find_individual(fam->members.begin(), 
+				     fam->members.end(), mother_id);
+	if (found != fam->members.end())  {
+	  (*person)->mother = (*found);
+	}
+      }
+      
+      // father
+      if ((*person)->father == NULL && (*person)->father_id != UNKNOWN)
+	{
+	  int father_id = (*person)->father_id;
+	  found = fam->find_individual(fam->members.begin(), 
+				       fam->members.end(), father_id);
+	  if (found != fam->members.end())
+	    {
+	      (*person)->father = (*found);
+	    }
+	}
+      
+      // children
+	  for (found = fam->members.begin();  found != fam->members.end(); found++)
+	    {
+	      //printf("  FOUND: %i, f %i, m %i, s %i\n", (*person)->individual_id, (*person)->father_id, (*person)->mother_id, (*person)->sex);
+	      if ((*found)->mother_id == (*person)->individual_id)
+		{
+		  if ((*person)->sex == FEMALE)
+		    {
+		      // set mother's child ptr and child's mother pointer
+		      (*person)->children.push_back(*found);
+		      if ((*found) != NULL){
+			(*found)->mother = (*person);
+		      } 
+		    
+		    } else {
+		      printf("PED %i ERROR: Sex disagreement between non-female individual %i who is mother of %i\n", fam->family_id, (*person)->individual_id, (*found)->individual_id);
+		    }
+		} // end found's mother is person
+
+	      if ((*found)->father_id == (*person)->individual_id)
+		{
+		  if ((*person)->sex == MALE)
+		    {
+		      // set father's child ptr and child's father pointer
+		      (*person)->children.push_back(*found);
+		      if ((*found) != NULL)
+			{
+			  (*found)->father = (*person);
+			}
+		    }
+		  else
+		    {
+		      printf("PED %i ERROR: Sex disagreement between non-male individual %i who is father of %i\n", fam->family_id, (*person)->individual_id, (*found)->individual_id);
+		    }
+		} // end found's father is person
+	    }
+	}
+    }
+
+
+  
+  
+}
+
 
 void read_founder_file(const char* in_file)
 {
@@ -654,26 +744,22 @@ void read_founder_file(const char* in_file)
        vector<Family>::iterator family = pedigrees.end();
        for (vector<Family>::iterator fam = pedigrees.begin();  
 	    fam != pedigrees.end(); 
-	    fam++)
-	 {
-	   if (fam->family_id == family_id)
-	     {
-	       family = fam;
-	     }
+	    fam++) {
+	 if (fam->family_id == family_id) {
+	   family = fam;
 	 }
+       }
 
-       if (family == pedigrees.end())
-	 {
+       if (family == pedigrees.end()){
 	   printf("FATAL ERROR: (kinship file) family %i does not exist\n", family_id);
 	   exit(-643);
 	 }
 
        
        // create founder kinship table in family
-       while (family->founder_kinship.size() < family->founder.size())
-	 {
-	   family->founder_kinship.push_back(vector<double>(family->founder.size()));
-	 }
+       while (family->founder_kinship.size() < family->founder.size()) {
+	 family->founder_kinship.push_back(vector<double>(family->founder.size()));
+       }
 
 
        // read the first individual id
@@ -1057,17 +1143,17 @@ void set_traversal_orders()
 // every other phi_fj = 0
 // phi_ij = (phi_mj + phi_pj)/2 where i is not ancestor of j and i != j
 //
-int compute_kinship(const char* out_kinship_file)
+int compute_kinship()
 {
 
   // print out all genotypes (ordered by parental source)
-  FILE* fp = fopen (out_kinship_file, "w");
+  /*  FILE* fp = fopen (out_kinship_file, "w");
   if (fp == NULL)
     {
       printf("Cannot open (w) %s.", out_kinship_file);
       exit(-1);
     }
-
+  */
 
   // For each family
   int hap_index = 0;
@@ -1077,11 +1163,6 @@ int compute_kinship(const char* out_kinship_file)
   for (fam = pedigrees.begin();  fam != pedigrees.end();  fam++)
     {
       vector<vector<double> > phi(fam->members.size(), vector<double>(fam->members.size(), -1.0));
-
-
-
-
-
 
       // for individuals get the top-down order
       vector<Individual*> top_down;
@@ -1143,6 +1224,7 @@ int compute_kinship(const char* out_kinship_file)
       // printf("\n");
       
 
+      Rcout << "kjhkjhk" << std::endl;
 
       // Initialize the ancestor sets by top-down recursion
       vector<vector<int> > ancestors(fam->members.size(), vector<int>(fam->members.size(), false));
@@ -1176,6 +1258,8 @@ int compute_kinship(const char* out_kinship_file)
 	}
 
 
+            Rcout << "werwrerwer2" << std::endl;
+
       // initialize all the founder kinship coefficients
       for (int f = 0;  f < fam->founder.size();  f++)
 	{
@@ -1197,7 +1281,9 @@ int compute_kinship(const char* out_kinship_file)
 
 
 
+            Rcout << "werwrerwer3" << std::endl;
 
+	    
       // Compute the kinship by top-down recursion
       for (int x = 0;  x < top_down.size(); x++)
 	{
@@ -1284,7 +1370,7 @@ int compute_kinship(const char* out_kinship_file)
       }
 
 
-
+      Rcout << "werwrerwer" << std::endl;
 
       // print the kinship information to the file
       for (int i=0; i < fam->indiv_interest.size(); i++)
@@ -1293,7 +1379,8 @@ int compute_kinship(const char* out_kinship_file)
 	    {
 	      int x = fam->indiv_interest[i]->individual_index;
 	      int y = fam->indiv_interest[j]->individual_index;
-	      fprintf(fp, "%i %i %i %f\n", fam->family_id, fam->indiv_interest[i]->individual_id, fam->indiv_interest[j]->individual_id, phi[x][y]);
+	      //	      fprintf(fp, "%i %i %i %f\n", fam->family_id, fam->indiv_interest[i]->individual_id, fam->indiv_interest[j]->individual_id, phi[x][y]);
+	      Rcout << fam->family_id << " " << fam->indiv_interest[i]->individual_id << " " << fam->indiv_interest[j]->individual_id << " " << phi[x][y] << std::endl;
 	    }
 	}
 
@@ -1301,8 +1388,9 @@ int compute_kinship(const char* out_kinship_file)
 
 
 
-  fclose(fp); // close out file 
+  //  fclose(fp); // close out file 
 
+      return(0);
 }
 
 
@@ -1773,7 +1861,7 @@ int yegoodeoldmain (int argc, char *argv[])
 
 
   if (algorithm[0] == 'e')  {
-    compute_kinship(out_kinship_file);
+    //    compute_kinship(out_kinship_file);
   }
   else if (algorithm[0] == 'a') {
     sample_kinship(out_kinship_file, iterations);
@@ -1841,12 +1929,18 @@ void create_kinship(const IntegerVector& famid, const IntegerVector& id, const I
   set_traversal_orders();
 
 
+  set_founders();
 
+  Rcout << "aloha" << std::endl;
 
   // Now set the founder information.
   // For now assume that founders are non-inbred
 
+  //
+
   // Iterate over all families then all founders
+
+  /*
   for (vector<Family>::iterator mainfam = pedigrees.begin();  
        mainfam != pedigrees.end(); 
        mainfam++) {
@@ -1855,6 +1949,7 @@ void create_kinship(const IntegerVector& famid, const IntegerVector& id, const I
 
     // Scan families for family pointer
     vector<Family>::iterator family = pedigrees.end();
+    
     for (vector<Family>::iterator fam = pedigrees.begin();  
 	 fam != pedigrees.end(); 
 	 fam++) {
@@ -1891,7 +1986,7 @@ void create_kinship(const IntegerVector& famid, const IntegerVector& id, const I
 	  }
       }
       if (!found) {
-	stop("Found an error here (222)")
+	stop("Found an error here (222)");
 	  //	printf("FATAL ERROR: (kinship file) founder %i does not exist in family %i\n", indiv_id, family_id);
 	  //	exit(-644);
       }
@@ -1989,30 +2084,35 @@ void create_kinship(const IntegerVector& famid, const IntegerVector& id, const I
      }
   fclose(fp);
 
+  */
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  // Will maybe need to set founders values with themselves
 
   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  compute_kinship();
   
 
   
