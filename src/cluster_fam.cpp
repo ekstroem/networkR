@@ -5,12 +5,16 @@
 #include <Rcpp.h>
 using namespace Rcpp;
 
+//
+// This function replaces 
+//
+//
 IntegerVector replace_nazero(IntegerVector x, int replacement) {
-  long N = x.size() ;
+  int N = x.size() ;
 
   IntegerVector out(N+1);
   
-  for( long i=0; i<N; i++){
+  for(int i=0; i<N; i++){
     if( IntegerVector::is_na( x[i] ) )
       out[i] = replacement-1;
     else if (x[i] == 0) {
@@ -49,9 +53,9 @@ IntegerVector replace_nazero(IntegerVector x, int replacement) {
 //'
 //' @export 
 // [[Rcpp::export]]
-IntegerVector make_family_id(const IntegerVector& id, const IntegerVector& fid, const IntegerVector& mid) {
+IntegerVector make_family_id(const NumericVector& id, const NumericVector& fid, const NumericVector& mid) {
 
-  long N = id.size();
+  unsigned int N = id.size();
 
   // Sanity checks
   if (fid.size() != N)
@@ -65,13 +69,13 @@ IntegerVector make_family_id(const IntegerVector& id, const IntegerVector& fid, 
   IntegerVector family = seq_len(N+1)-1;
   IntegerVector newid = seq_len(N+1);
   
-  for (int i=0; i<N; i++) {
-    for (int j=0; j<N; j++) {
+  for (unsigned int i=0; i<N; i++) {
+    for (unsigned int j=0; j<N; j++) {
       newid[j] = std::min(std::min(family[j], family[motherid[j]]), family[fatherid[j]]);
       //      Rcout << "  Changed newid for position " << j << " to " << newid[j] << std::endl;
     }
     // Could be sped up
-    for (int j=0; j<N; j++) {
+    for (unsigned int j=0; j<N; j++) {
       // Fix the mothers and fathers
       //      Rcout << "    Change newid for position " << motherid[j] << " from " << newid[motherid[j]] ;      
       newid[motherid[j]] = std::min(newid[j], newid[motherid[j]]);
@@ -98,10 +102,7 @@ IntegerVector make_family_id(const IntegerVector& id, const IntegerVector& fid, 
   return(match(family, famnames));
 }
 
-
 int unique_set_native(Rcpp::CharacterVector x) {
   std::unordered_set<SEXP> tab(x.begin(), x.end());
   return tab.size();
 }
-
-
