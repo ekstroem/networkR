@@ -1,8 +1,8 @@
 Package: networkR
 Type: Package
 Title: Network Analysis and Visualization
-Version: 0.1.0-0
-Date: 2018-01-26
+Version: 0.1.1-0
+Date: 2018-10-25
 Authors@R: c(person(given="Claus Thorn", family="Ekstrøm", email="ekstrom@sund.ku.dk", role=c("aut", "cre")),
              person(given="Bendix", family="Carstensen", email="b@bxc.dk", role="ctb"))
 Maintainer: Claus Thorn Ekstrøm <ekstrom@sund.ku.dk>
@@ -21,7 +21,5 @@ LinkingTo: Rcpp, RcppArmadillo
 SystemRequirements: C++11
 Encoding: UTF-8
 ByteCompile: true
-RoxygenNote: 6.0.1.9000
+RoxygenNote: 6.1.0
 Suggests: testthat
-
-
