@@ -2,7 +2,7 @@ Package: networkR
 Type: Package
 Title: Network Analysis and Visualization
 Version: 0.1.1-0
-Date: 2018-10-25
+Date: 2019-02-27
 Authors@R: c(person(given="Claus Thorn", family="Ekstrøm", email="ekstrom@sund.ku.dk", role=c("aut", "cre")),
              person(given="Bendix", family="Carstensen", email="b@bxc.dk", role="ctb"))
 Maintainer: Claus Thorn Ekstrøm <ekstrom@sund.ku.dk>
@@ -13,13 +13,13 @@ Description: Collection of functions for fast manipulation, handling, and analys
     with data from large public national registers and databases.
     Kenneth Lange (2003, ISBN:978-8181281135).
 License: GPL (>= 2)
-Depends: data.table,
+Imports: Rcpp (>= 0.12.12),
+         data.table,
          fastmatch,
          Matrix
-Imports: Rcpp (>= 0.12.12)
 LinkingTo: Rcpp, RcppArmadillo
 SystemRequirements: C++11
 Encoding: UTF-8
 ByteCompile: true
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1
 Suggests: testthat
