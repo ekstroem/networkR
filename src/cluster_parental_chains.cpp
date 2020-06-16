@@ -49,7 +49,7 @@ IntegerVector replace_nazero2(IntegerVector x, int replacement) {
 //' id <- 1:11
 //' fid <- c(0,0,1,0,0,4,0,0,3,7,7)
 //' mid <- c(0,0,2,0,0,5,0,0,6,6,8)
-//' make_founder_chain(id, fid, mid)
+//' make_parental_chain(id, fid, mid)
 //'
 //' @export 
 // [[Rcpp::export]]
