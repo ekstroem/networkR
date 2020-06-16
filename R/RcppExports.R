@@ -29,3 +29,31 @@ make_family_id <- function(id, fid, mid) {
     .Call(`_networkR_make_family_id`, id, fid, mid)
 }
 
+#' Construct parental chain id vector from pedigree trio information
+#'
+#' @description Create a vector of length n, giving the id of
+#' parental chains.  If the pedigree is totally connected, then everyone
+#' will end up in tree 1, otherwise the tree numbers represent the
+#' disconnected subfamilies.  Singleton subjects each have unique
+#' family numbers.
+#'
+#' No check is done to ensure that the id, fid, and mid actually refer to proper family structure.
+#' References to ids in the fid and mid arguments that are not part of the id vector are considered founders.
+#' @param id Numeric vector of ids
+#' @param fid Numeric vector of ids of the father. This should be NA or 0 for a founder.
+#' @param mid Numeric vector of ids of the mother. This should be NA or 0 for a founder.
+#' @return Returns an integer vector giving the family index
+#' @author Claus Ekstrom \email{ekstrom@@sund.ku.dk}
+#' @keywords manip
+#' @examples
+#'
+#' id <- 1:11
+#' fid <- c(0,0,1,0,0,4,0,0,3,7,7)
+#' mid <- c(0,0,2,0,0,5,0,0,6,6,8)
+#' make_founder_chain(id, fid, mid)
+#'
+#' @export 
+make_parental_chain <- function(id, fid, mid) {
+    .Call(`_networkR_make_parental_chain`, id, fid, mid)
+}
+

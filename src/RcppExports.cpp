@@ -19,9 +19,23 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// make_parental_chain
+IntegerVector make_parental_chain(const NumericVector& id, const NumericVector& fid, const NumericVector& mid);
+RcppExport SEXP _networkR_make_parental_chain(SEXP idSEXP, SEXP fidSEXP, SEXP midSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const NumericVector& >::type id(idSEXP);
+    Rcpp::traits::input_parameter< const NumericVector& >::type fid(fidSEXP);
+    Rcpp::traits::input_parameter< const NumericVector& >::type mid(midSEXP);
+    rcpp_result_gen = Rcpp::wrap(make_parental_chain(id, fid, mid));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_networkR_make_family_id", (DL_FUNC) &_networkR_make_family_id, 3},
+    {"_networkR_make_parental_chain", (DL_FUNC) &_networkR_make_parental_chain, 3},
     {NULL, NULL, 0}
 };
 

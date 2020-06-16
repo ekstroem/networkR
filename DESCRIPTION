@@ -21,5 +21,5 @@ LinkingTo: Rcpp, RcppArmadillo
 SystemRequirements: C++11
 Encoding: UTF-8
 ByteCompile: true
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.0
 Suggests: testthat

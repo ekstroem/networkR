@@ -3,6 +3,7 @@
 export(adjacency)
 export(hits)
 export(make_family_id)
+export(make_parental_chain)
 export(mksib)
 export(validate_trio_consistency)
 import(data.table)
