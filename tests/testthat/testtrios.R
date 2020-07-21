@@ -10,6 +10,26 @@ test_that("identify family clusters", {
     expect_is(res, "integer")
     expect_equal(length(res), length(id))
     expect_equal(res, c(1L, 1L, 1L, 1L, 2L, 2L, 2L, 2L, 2L, 2L, 3L))
+
+    id <- 1:4
+    fid <- c(0, 0, 1, 1)
+    mid <- c(0, 0, 2, 2)
+    expect_equal(make_family_id(id, fid, mid), c(1L, 1L, 1L, 1L))
+
+    expect_equal(make_family_id(c(1,2), c(3,3), c(4,4)), c(1L, 1L))
+})
+
+
+test_that("identify parental chains", {
+    id <- 1:11
+    fid <- c(0,0,1,0,0,4,0,0,3,7,7)
+    mid <- c(0,0,2,0,0,5,0,0,6,6,8)    
+    res <- make_parental_chain(id, fid, mid)
+    
+    expect_is(res, "integer")
+    expect_equal(length(res), length(id))
+    expect_equal(res, c(1L, 1L, 2L, 3L, 3L, 2L, 2L, 2L, 4L, 5L, 6L))
+
 })
 
 

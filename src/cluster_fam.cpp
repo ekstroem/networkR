@@ -6,7 +6,7 @@
 using namespace Rcpp;
 
 //
-// This function replaces 
+// This function replaces subtracts 1 from all indices after it has replaced NAs and 0s with replacement.
 //
 //
 IntegerVector replace_nazero(IntegerVector x, int replacement) {
@@ -37,11 +37,11 @@ IntegerVector replace_nazero(IntegerVector x, int replacement) {
 //' family numbers.
 //'
 //' No check is done to ensure that the id, fid, and mid actually refer to proper family structure.
-//' References to ids in the fid and mid arguments that are not part of the id vector are considered founders.
+//' References to ids in the fid and mid arguments that are not part of the id vector are considered founders and are thus replaced by NA or 0s after being used to group full and half-sibs.
 //' @param id Numeric vector of ids
 //' @param fid Numeric vector of ids of the father. This should be NA or 0 for a founder.
 //' @param mid Numeric vector of ids of the mother. This should be NA or 0 for a founder.
-//' @return Returns an integer vector giving the family index
+//' @return Returns an integer vector giving the family index of each individual
 //' @author Claus Ekstrom \email{ekstrom@@sund.ku.dk}
 //' @keywords manip
 //' @examples
@@ -64,16 +64,37 @@ IntegerVector make_family_id(const NumericVector& id, const NumericVector& fid, 
     stop("id, fid, and mid must have the same length");
 
       
-  IntegerVector fatherid = replace_nazero(match(fid, id), N+1);
-  IntegerVector motherid = replace_nazero(match(mid, id), N+1);
   IntegerVector family = seq_len(N+1)-1;
   IntegerVector newid = seq_len(N+1);
-  
+
+  // Combine full and half siblings into same families before starting
+  // This will ensure that some trios are grouped together
+  // Using the fact tha family ids are sorted at this point
+  for (unsigned int i=0; i<N-1; i++) {
+    
+    for (unsigned int j=i+1; j<N; j++) {
+      if (fid[i] == fid[j] & fid[i]>0 & !NumericVector::is_na( fid[i] )) { // If same father with an actual id then same family
+	family[j] = family[i];
+      }
+      if (mid[i] == mid[j] & mid[i]>0 & !NumericVector::is_na( mid[i] )) { // If same mother with an actual id then same family      
+	family[j] = family[i];
+      }
+    }
+  }
+
+  IntegerVector fatherid = replace_nazero(match(fid, id), N+1);
+  IntegerVector motherid = replace_nazero(match(mid, id), N+1);
+
+  // We need to run through all individuals over and onver since the ordering might be messed up in the input vectors
   for (unsigned int i=0; i<N; i++) {
+
+    // First we set the familyid of individual j to be the smallest of the parents and the id itself
     for (unsigned int j=0; j<N; j++) {
       newid[j] = std::min(std::min(family[j], family[motherid[j]]), family[fatherid[j]]);
       //      Rcout << "  Changed newid for position " << j << " to " << newid[j] << std::endl;
     }
+
+
     // Could be sped up
     for (unsigned int j=0; j<N; j++) {
       // Fix the mothers and fathers

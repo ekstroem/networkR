@@ -82,12 +82,11 @@ IntegerVector make_parental_chain(const NumericVector& id, const NumericVector& 
   }
 
 
-  // Insert check here?
-
+  // Insert check here? Not sure what I was thinking about
 
   IntegerVector famnames = sort_unique(family);
   IntegerVector idx = seq_len(famnames.size())-1;
-  family = family[family<N];
+  //  family = family[family<N];
   
   return(match(family, famnames));
 

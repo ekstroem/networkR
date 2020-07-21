@@ -14,7 +14,7 @@ make_family_id(id, fid, mid)
 \item{mid}{Numeric vector of ids of the mother. This should be NA or 0 for a founder.}
 }
 \value{
-Returns an integer vector giving the family index
+Returns an integer vector giving the family index of each individual
 }
 \description{
 Create a vector of length n, giving the family id of
@@ -24,7 +24,7 @@ disconnected subfamilies.  Singleton subjects each have unique
 family numbers.
 
 No check is done to ensure that the id, fid, and mid actually refer to proper family structure.
-References to ids in the fid and mid arguments that are not part of the id vector are considered founders.
+References to ids in the fid and mid arguments that are not part of the id vector are considered founders and are thus replaced by NA or 0s after being used to group full and half-sibs.
 }
 \examples{
 
